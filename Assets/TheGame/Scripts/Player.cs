@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     // Die Kraft, mit der nach oben gesprungen wird.
     public float jumpPush = 1f;
 
+    // Verstärkung der Gravitation, damit die Figur schneller fällt.
+    public float extraGravity = 20f;
+
     // Grafisches Modell, u.a. für die Drehung in Laufrichtung.
     public GameObject model;
 
@@ -19,6 +22,10 @@ public class Player : MonoBehaviour
 
     // Zeiger auf die Physik-Komponente
     private Rigidbody rigid;
+
+    /* Ist die Figur gerade auf dem Boden?
+       Wenn false, fällt oder springt sie. */
+    private bool onGround = false;
 
     private void Start()
     {
@@ -42,11 +49,14 @@ public class Player : MonoBehaviour
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.Euler(0f, towardsY, 0f), Time.deltaTime * 10f);
 
         // Springen
-        if (Input.GetAxis("Jump") > 0f)
+        RaycastHit hitInfo; 
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        if (Input.GetAxis("Jump") > 0f && onGround)
         {
             Vector3 power = rigid.velocity; 
             power.y = jumpPush;
             rigid.velocity = power;
         }
+        rigid.AddForce(new Vector3 (0f, extraGravity, 0f));
     }
 }
