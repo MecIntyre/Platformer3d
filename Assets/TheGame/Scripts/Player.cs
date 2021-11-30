@@ -20,8 +20,11 @@ public class Player : MonoBehaviour
     // Der Winkel zu dem sich die Figur um die eigene Achse (=Y) drehen soll
     private float towardsY = 0f;
 
-    // Zeiger auf die Physik-Komponente
+    // Zeiger auf die Physik-Komponente der Spielfigur.
     private Rigidbody rigid;
+
+    // Zeiger auf die Animations-Komponente
+    private Animator anim;
 
     /* Ist die Figur gerade auf dem Boden?
        Wenn false, fällt oder springt sie. */
@@ -30,12 +33,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rigid = GetComponent<Rigidbody> ();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     private void Update()
     {   
         float h = Input.GetAxis("Horizontal"); // Eingabesignal fürs Laufen
+        anim.SetFloat("forward", Mathf.Abs(h));
 
         // Vorwärtsbewegung
         transform.position += h * speed * transform.forward;
@@ -51,6 +56,7 @@ public class Player : MonoBehaviour
         // Springen
         RaycastHit hitInfo; 
         onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        anim.SetBool ("grounded", onGround);
         if (Input.GetAxis("Jump") > 0f && onGround)
         {
             Vector3 power = rigid.velocity; 
