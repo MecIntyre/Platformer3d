@@ -59,4 +59,14 @@ public class Player : MonoBehaviour
         }
         rigid.AddForce(new Vector3 (0f, extraGravity, 0f));
     }
+
+    private void OnDrawGizmos() 
+    {
+        if (onGround) Gizmos.color = Color.magenta;
+        else Gizmos.color = Color.green;
+
+        Vector3 rayStartPosition = transform.position + (Vector3.up * 0.1f);
+        Gizmos.DrawLine(rayStartPosition, rayStartPosition + (Vector3.down * 0.12f));
+        
+    }
 }

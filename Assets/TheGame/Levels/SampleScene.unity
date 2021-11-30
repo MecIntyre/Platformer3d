@@ -493,8 +493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707fd60348784564a8a1314a34984cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
-  jumpPush: 4
+  speed: 0.08
+  jumpPush: 8
   extraGravity: -20
   model: {fileID: 757543043}
 --- !u!4 &1343267463
