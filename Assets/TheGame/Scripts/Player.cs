@@ -26,6 +26,6 @@ public class Player : MonoBehaviour
         else if (h < 0f) // nach links gehen 
             towardsY = -180f;
 
-        model.transform.rotation = Quaternion.Lerp(model.transformrotation,Quaternion.Euler(0f, towardsY, 0f), Time.deltaTime * 10f);
+        model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.Euler(0f, towardsY, 0f), Time.deltaTime * 10f);
     }
 }
