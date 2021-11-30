@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  jumpPush: 4
   model: {fileID: 757543043}
 --- !u!4 &1343267463
 Transform:
