@@ -32,4 +32,19 @@ public class DoorSwitch : MonoBehaviour
         mats[1] = m2;
         mesh.materials = mats;
     }
+
+    private void Awaker()
+    {
+        SaveGameData.onSave += saveme;
+    }
+
+    private void savme(SaveGameData savegame)
+    {
+        savegame.doorIsOpen = doorAnimator.GetBool ("isOpen");
+    }
+
+    private void OnDestroy() 
+    {
+         SaveGameData.onSave -= saveme;
+    }
 }
