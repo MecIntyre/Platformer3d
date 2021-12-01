@@ -50,7 +50,10 @@ public class SaveGameData
 
     // Lädt einen Spielstand
     public static SaveGameData load()
-    {
+    {   
+        if (!File.Exists (getFilename ()))
+            return new SaveGameData();
+
         Debug.Log ("Lade Spielstand " + getFilename ());
         SaveGameData save = XML.Load<SaveGameData> (File.ReadAllText(getFilename()));
 
