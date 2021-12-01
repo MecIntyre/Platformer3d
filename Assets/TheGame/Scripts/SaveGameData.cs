@@ -9,6 +9,13 @@ public class SaveGameData
 {
     public Vector3 playerPosition = Vector3.zero;
 
+    public bool doorIsOpen = false;
+
+    public delegate void SaveHandler(SaveGameData saveGame);
+
+    public static event SaveHandler onSave;
+
+
     private static string getFilename()
     {
         return Application.persistentDataPath + Path.DirectorySeparatorChar + "savegame.xml";
@@ -21,6 +28,8 @@ public class SaveGameData
 
         Player p = Component.FindObjectOfType<Player> ();
         playerPosition = p.transform.position;
+
+        if (onSave!=null) onSave(this);
 
         string xml = XML.Save(this);
         File.WriteAllText(getFilename (), xml);
