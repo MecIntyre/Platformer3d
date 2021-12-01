@@ -8,7 +8,9 @@ public class SaveGameTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("Jetzt speichern");    
+        Debug.Log("Jetzt speichern");  
+        SaveGameData savegame = new SaveGameData();
+        savegame.save ();  
     }
 
     private void OnDrawGizmos() 
