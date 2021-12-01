@@ -38,7 +38,7 @@ public class DoorSwitch : MonoBehaviour
         SaveGameData.onSave += saveme;
     }
 
-    private void savme(SaveGameData savegame)
+    private void saveme(SaveGameData savegame)
     {
         savegame.doorIsOpen = doorAnimator.GetBool ("isOpen");
     }
