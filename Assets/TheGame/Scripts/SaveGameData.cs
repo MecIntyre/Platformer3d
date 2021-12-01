@@ -11,12 +11,13 @@ public class SaveGameData
 
     private static string getFilename()
     {
-        return Application.persistentDataPath + "/savegame.xml";
+        return Application.persistentDataPath + Path.DirectorySeparatorChar + "savegame.xml";
     }
 
+    // Speichert einen Spielstand
     public void save()
     {
-        Debug.Log ("Speichere Spielstand" +getFilename());
+        Debug.Log ("Speichere Spielstand " +getFilename());
 
         Player p = Component.FindObjectOfType<Player> ();
         playerPosition = p.transform.position;
@@ -25,6 +26,18 @@ public class SaveGameData
         File.WriteAllText(getFilename (), xml);
 
         Debug.Log (xml);
+    }
+
+    // Lädt einen Spielstand
+    public static SaveGameData load()
+    {
+        Debug.Log ("Lade Spielstand " + getFilename ());
+        SaveGameData save = XML.Load<SaveGameData> (File.ReadAllText(getFilename()));
+
+        Player p = Component.FindObjectOfType<Player> ();
+        p.transform.position = save.playerPosition;
+
+        return save;
     }
 
 }
