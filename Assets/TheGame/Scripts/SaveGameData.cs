@@ -14,6 +14,7 @@ public class SaveGameData
     public delegate void SaveHandler(SaveGameData saveGame);
 
     public static event SaveHandler onSave;
+    public static event SaveHandler onLoad;
 
 
     private static string getFilename()
@@ -45,6 +46,8 @@ public class SaveGameData
 
         Player p = Component.FindObjectOfType<Player> ();
         p.transform.position = save.playerPosition;
+
+        if(onLoad!=null) onLoad(save);
 
         return save;
     }
