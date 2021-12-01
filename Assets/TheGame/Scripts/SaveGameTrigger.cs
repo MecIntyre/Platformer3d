@@ -13,10 +13,13 @@ public class SaveGameTrigger : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
-        Gizmos.color = Color.magenta;
-        Matrix4x4 oldMatrix = Gizmos.matrix;
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
-        Gizmos.matrix = oldMatrix;
+        if (UnityEditor.Selection.activeGameObject != this.gameObject)
+        {
+            Gizmos.color = Color.magenta;
+            Matrix4x4 oldMatrix = Gizmos.matrix;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size);
+            Gizmos.matrix = oldMatrix;
+        }
     }
 }
