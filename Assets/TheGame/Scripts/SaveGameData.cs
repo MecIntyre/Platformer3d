@@ -11,12 +11,22 @@ public class SaveGameData
 
     public bool doorIsOpen = false;
 
+    /* Methoden, die sich in ein Save-Event eintragen wollen, 
+       müssen von dieser Form sein. */
     public delegate void SaveHandler(SaveGameData saveGame);
 
+    /* Methoden, die sich hier Eintragen, werden aufgerufen, 
+       wenn sich Szenenobjekte ihren Zustand in den Speicherstand eintragen sollen */
     public static event SaveHandler onSave;
+
+    /* Methoden, die sich hier Eintragen, werden aufgerufen, 
+       wenn ein Spielstand aus einer Savegame-Datei geladen wurde. 
+       Die Methoden sollten das Wiederherstellen des Objektzustands
+       aus dem Spielstand implementieren. */
     public static event SaveHandler onLoad;
 
-
+    /* Liefert den Namen der Datei, in die der Spielstand geschrieben wird
+       <returns>Name der Spielstandatei</returns> */
     private static string getFilename()
     {
         return Application.persistentDataPath + Path.DirectorySeparatorChar + "savegame.xml";
