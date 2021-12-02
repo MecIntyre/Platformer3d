@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
             SceneManager.UnloadSceneAsync (SceneManager.GetSceneAt(i).name);
         }
 
-        Debug.Log ("Lade jetzt Szene:" + name);
+        Debug.Log ("Lade jetzt Szene: " + name);
         SceneManager.LoadScene(name, LoadSceneMode.Additive);
     }
     
