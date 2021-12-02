@@ -6,7 +6,13 @@ public class LevelManager : MonoBehaviour
 {
    private void Awake() 
    {
-       SaveGameData.load();
+       SaveGameData.current = SaveGameData.load();
+   }
+
+   private void Update() 
+   {
+       if (Input.GetKeyUp (KeyCode.Alpha1))
+           SaveGameData.current = SaveGameData.load();
    }
 
 }
