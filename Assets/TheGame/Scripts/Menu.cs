@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    // Zwischengespeicherter Zeiger auf den menü-Canvas für schnelleren Zugriff.
-    private Canvas canvas;
+    // Wurzelelement, dass das gesamte Menü ein- oder ausblendet.
+    public GameObject menuRoot;
 
     void Start()
-    {   canvas = GetComponent<Canvas> ();
-        canvas.enabled = false;
+    {   
+      menuRoot.SetActive(false);
     }
 
     /* Wahr, wenn die Taste bereits als gedrückt erkannt wurde.
@@ -21,12 +21,12 @@ public class Menu : MonoBehaviour
         {
             if (!keyWasPressed)
             {
-                canvas.enabled = canvas.enabled;
+                menuRoot.SetActive(!menuRoot.activeSelf);
                 
-                Time.timeScale = canvas.enabled ? 0f : 1f ;      /* Alternative zu:     if (canvas.enabled)
-                                                                                            Time.timeScale = 0f;
-                                                                                        else
-                                                                                            Time.timeScale = 1f; */
+                Time.timeScale = menuRoot.activeSelf ? 0f : 1f ;      /* Alternative zu:    if (menuRoot.activeSelf)
+                                                                                                Time.timeScale = 0f;
+                                                                                            else
+                                                                                                Time.timeScale = 1f; */
                                                                 
             }
                 
@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour
         LevelManager lm = FindObjectOfType<LevelManager> ();
         lm.loadScene ("Scene1");
 
-        canvas.enabled = false;
+        menuRoot.SetActive(false);
         Time.timeScale = 1f;
     }
 
