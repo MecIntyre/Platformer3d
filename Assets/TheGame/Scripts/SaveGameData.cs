@@ -19,7 +19,7 @@ public class SaveGameData
     public string lastTriggerID="";
 
     // Name der Szene, in der sich die Spielfigur momentan befindet.
-    public string secentScene = "";
+    public string recentScene = "";
 
     /* Methoden, die sich in ein Save-Event eintragen wollen, 
        müssen von dieser Form sein. */
@@ -47,9 +47,6 @@ public class SaveGameData
     {
         Debug.Log ("Speichere Spielstand " +getFilename());
 
-        Player p = Component.FindObjectOfType<Player> ();
-        playerPosition = p.transform.position;
-
         if (onSave!=null) onSave(this);
 
         string xml = XML.Save(this);
@@ -66,9 +63,6 @@ public class SaveGameData
 
         Debug.Log ("Lade Spielstand " + getFilename ());
         SaveGameData save = XML.Load<SaveGameData> (File.ReadAllText(getFilename()));
-
-        Player p = Component.FindObjectOfType<Player> ();
-        p.transform.position = save.playerPosition;
 
         if(onLoad!=null) onLoad(save);
 
