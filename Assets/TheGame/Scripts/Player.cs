@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 // Steuerung der Spielfigur
 public class Player : MonoBehaviour
@@ -77,11 +78,21 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(rayStartPosition, rayStartPosition + (Vector3.down * 0.12f));
         
     }
+        /* Das Ziel, das die Kamera verfolgt.
+           Normalerweise ist das der Hüftknochen */
+        public GameObject cameraTarget;
 
         private void Awaker()
     {
         SaveGameData.onSave += saveme;
         SaveGameData.onLoad += loadme;
+
+        CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera> ();
+        if (cvc != null)
+        {
+            cvc.Follow = transform;
+            cvc.LookAt = cameraTarget.transform;
+        }
     }
 
     // Speicherpunkt für Spielerposition
