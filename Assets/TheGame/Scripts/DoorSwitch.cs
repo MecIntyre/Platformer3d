@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // Realisiert, wie die Tür mit einem Schalter, interaktiv geöffnet werden kann.
-public class DoorSwitch : MonoBehaviour
+public class DoorSwitch : Saveable
 {
     // Animator auf dem Tür-mesh, um das öffnen der Tür zu realisieren.
     public Animator doorAnimator;
@@ -33,32 +33,17 @@ public class DoorSwitch : MonoBehaviour
         mesh.materials = mats;
     }
 
-    private void Awaker()
+    protected override void saveme(SaveGameData savegame)
     {
-        SaveGameData.onSave += saveme;
-        SaveGameData.onLoad += loadme;
-    }
-
-    private void Start() 
-    {
-        loadme (SaveGameData.current);
-    }
-
-    private void saveme(SaveGameData savegame)
-    {
+        base.saveme(savegame);
         savegame.doorIsOpen = doorAnimator.GetBool ("isOpen");
     }
 
-    private void loadme(SaveGameData savegame)
+    protected override void loadme(SaveGameData savegame)
     {
+        base.loadme (savegame);
         Debug.Log ("Doorswitch loadme");
         if (savegame.doorIsOpen)
             openTheDoor ();
-    }
-
-    private void OnDestroy() 
-    {
-         SaveGameData.onSave -= loadme;
-         SaveGameData.onSave -= saveme;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 // Steuerung der Spielfigur
-public class Player : MonoBehaviour
+public class Player : Saveable
 {
     // Laufgeschwindigkeit der Figur.
     public float speed = 0.05f;
@@ -31,12 +31,11 @@ public class Player : MonoBehaviour
        Wenn false, fällt oder springt sie. */
     private bool onGround = false;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start ();
         rigid = GetComponent<Rigidbody> ();
         anim = GetComponentInChildren<Animator>();
-
-        loadme (SaveGameData.current);
     }
 
     // Update is called once per frame
@@ -82,10 +81,9 @@ public class Player : MonoBehaviour
            Normalerweise ist das der Hüftknochen */
         public GameObject cameraTarget;
 
-        private void Awaker()
+        protected override void Awake()
     {
-        SaveGameData.onSave += saveme;
-        SaveGameData.onLoad += loadme;
+        base.Awake ();
 
         CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera> ();
         if (cvc != null)
@@ -96,23 +94,20 @@ public class Player : MonoBehaviour
     }
 
     // Speicherpunkt für Spielerposition
-    private void saveme(SaveGameData savegame)
+    protected override void saveme(SaveGameData savegame)
     {
+        base.saveme (savegame);
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
     }
 
     /* Nur wenn die geladene Szene die ist, in der zuletzt die Position gespeichert wurde,
        wird die gespeicherte Spielerposition wieder hergestellt. */
-    private void loadme(SaveGameData savegame)
+    protected override void loadme(SaveGameData savegame)
     {
+        base.loadme (savegame);
         if (savegame.recentScene == gameObject.scene.name)
         transform.position = savegame.playerPosition;
     }
 
-    private void OnDestroy() 
-    {
-         SaveGameData.onSave -= loadme;
-         SaveGameData.onSave -= saveme;
-    }
 }
