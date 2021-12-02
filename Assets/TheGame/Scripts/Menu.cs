@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Zwischengespeicherter Zeiger auf den menü-Canvas für schnelleren Zugriff.
+    private Canvas canvas;
+
     void Start()
-    {
-        GetComponent<Canvas> ().enabled = false;
+    {   canvas = GetComponent<Canvas> ();
+        canvas.enabled = false;
     }
 
     /* Wahr, wenn die Taste bereits als gedrückt erkannt wurde.
        Nötig, um Mehrfachauswertungen der Menütaste zu verhindern.  */
     private bool keyWasPressed = false;
 
-    // Update is called once per frame
     void Update() {
         if (Input.GetAxisRaw ("Menu") > 0f)
         {
             if (!keyWasPressed)
             {
-                GetComponent<Canvas> ().enabled = !GetComponent<Canvas>().enabled;
-                if (GetComponent<Canvas> ().enabled)
-                    Time.timeScale = 0f;
-                else
-                    Time.timeScale = 1f;
+                canvas.enabled = canvas.enabled;
+                
+                Time.timeScale = canvas.enabled ? 0f : 1f ;      /* Alternative zu:     if (canvas.enabled)
+                                                                                            Time.timeScale = 0f;
+                                                                                        else
+                                                                                            Time.timeScale = 1f; */
+                                                                
             }
                 
             keyWasPressed = true;
@@ -39,7 +42,7 @@ public class Menu : MonoBehaviour
         LevelManager lm = FindObjectOfType<LevelManager> ();
         lm.loadScene ("Scene1");
 
-        GetComponent<Canvas> ().enabled = false;
+        canvas.enabled = false;
         Time.timeScale = 1f;
     }
 
