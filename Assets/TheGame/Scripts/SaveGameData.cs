@@ -14,8 +14,8 @@ public class SaveGameData
 
     public bool doorIsOpen = false;
 
-    /* Die ID des zuletzt ausgelösten Save-Triggers. 
-       <seealso cref="SaveGameTrigger.ID"/> */
+    /// <summary>Die ID des zuletzt ausgelösten Save-Triggers. </summary>
+    /// <seealso cref="SaveGameTrigger.ID"/>
     public string lastTriggerID="";
 
     // Name der Szene, in der sich die Spielfigur momentan befindet.
@@ -35,8 +35,8 @@ public class SaveGameData
        aus dem Spielstand implementieren. */
     public static event SaveHandler onLoad;
 
-    /* Liefert den Namen der Datei, in die der Spielstand geschrieben wird
-       <returns>Name der Spielstandatei</returns> */
+    /// <summary>Liefert den Namen der Datei, in die der Spielstand geschrieben wird</summary>
+    /// <returns>Name der Spielstandatei</returns>
     private static string getFilename()
     {
         return Application.persistentDataPath + Path.DirectorySeparatorChar + "savegame.xml";
