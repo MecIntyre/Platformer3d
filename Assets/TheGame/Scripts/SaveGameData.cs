@@ -7,9 +7,16 @@ using System.IO;
 [System.Serializable]
 public class SaveGameData
 {
+    // Das Aktuelle Savegame.
+    public static SaveGameData current = new SaveGameData();
+
     public Vector3 playerPosition = Vector3.zero;
 
     public bool doorIsOpen = false;
+
+    /* Die ID des zuletzt ausgelösten Save-Triggers. 
+       <seealso cref="SaveGameTrigger.ID"/> */
+    public string lastTriggerID="";
 
     /* Methoden, die sich in ein Save-Event eintragen wollen, 
        müssen von dieser Form sein. */
