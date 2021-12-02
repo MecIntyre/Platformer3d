@@ -49,6 +49,6 @@ public class DoorSwitch : Saveable
 
         private void OnDrawGizmos() 
     {
-        Utils.DrawBoxCollider (this);
+        Utils.DrawBoxCollider (this, Color.green);
     }
 }

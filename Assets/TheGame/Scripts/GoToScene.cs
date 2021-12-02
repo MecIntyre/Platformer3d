@@ -16,6 +16,6 @@ public class GoToScene : MonoBehaviour
 
     private void OnDrawGizmos() 
     {
-        Utils.DrawBoxCollider (this);
+        Utils.DrawBoxCollider (this, Color.red);
     }
 }
