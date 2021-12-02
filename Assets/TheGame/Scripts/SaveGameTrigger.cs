@@ -6,11 +6,20 @@ using UnityEngine;
 // Auslöser für automatischen Speicherpunkt
 public class SaveGameTrigger : MonoBehaviour
 {
+    // Speicher ID für den Trigger, womit ein mehrmaliges Triggern verhindert wird.
+    public string ID = "";
+
     private void OnTriggerEnter(Collider other) 
     {
         Debug.Log("Jetzt speichern");  
-        SaveGameData savegame = new SaveGameData();
-        savegame.save ();  
+        SaveGameData savegame = SaveGameData.current;
+
+        if (savegame.lastTriggerID != ID)
+        {
+            savegame.lastTriggerID = ID;
+            savegame.save ();  
+        } else
+            Debug.Log ("Dieser Speicherpunkt hat bereits zuletzt gespeichert. Überspringe das Speichern");
     }
 
     private void OnDrawGizmos() 
