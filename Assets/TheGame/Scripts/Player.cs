@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody> ();
         anim = GetComponentInChildren<Animator>();
+
+        loadme (SaveGameData.current);
     }
 
     // Update is called once per frame
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
         }
         rigid.AddForce(new Vector3 (0f, extraGravity, 0f));
     }
-
+    // Farbige Zeichnung des Hilfsstrahl für Entfernungsmessung beim Springen (Raycast)
     private void OnDrawGizmos() 
     {
         if (onGround) Gizmos.color = Color.magenta;
@@ -74,5 +76,32 @@ public class Player : MonoBehaviour
         Vector3 rayStartPosition = transform.position + (Vector3.up * 0.1f);
         Gizmos.DrawLine(rayStartPosition, rayStartPosition + (Vector3.down * 0.12f));
         
+    }
+
+        private void Awaker()
+    {
+        SaveGameData.onSave += saveme;
+        SaveGameData.onLoad += loadme;
+    }
+
+    // Speicherpunkt für Spielerposition
+    private void saveme(SaveGameData savegame)
+    {
+        savegame.playerPosition = transform.position;
+        savegame.recentScene = gameObject.scene.name;
+    }
+
+    /* Nur wenn die geladene Szene die ist, in der zuletzt die Position gespeichert wurde,
+       wird die gespeicherte Spielerposition wieder hergestellt. */
+    private void loadme(SaveGameData savegame)
+    {
+        if (savegame.recentScene == gameObject.scene.name)
+        transform.position = savegame.playerPosition;
+    }
+
+    private void OnDestroy() 
+    {
+         SaveGameData.onSave -= loadme;
+         SaveGameData.onSave -= saveme;
     }
 }
