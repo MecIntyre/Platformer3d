@@ -41,6 +41,9 @@ public class Player : Saveable
     // Update is called once per frame
     private void Update()
     {   
+        if (Time.timeScale == 0f)
+            return; // Wenn pausiert, update abbrechen.
+
         float h = Input.GetAxis("Horizontal"); // Eingabesignal fürs Laufen
         anim.SetFloat("forward", Mathf.Abs(h));
 
