@@ -46,4 +46,9 @@ public class DoorSwitch : Saveable
         if (savegame.doorIsOpen)
             openTheDoor ();
     }
+
+        private void OnDrawGizmos() 
+    {
+        Utils.DrawBoxCollider (this);
+    }
 }

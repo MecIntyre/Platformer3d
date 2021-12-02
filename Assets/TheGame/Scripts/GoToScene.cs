@@ -13,4 +13,9 @@ public class GoToScene : MonoBehaviour
         LevelManager lm = FindObjectOfType<LevelManager> ();
         lm.loadScene (scene);
     }
+
+    private void OnDrawGizmos() 
+    {
+        Utils.DrawBoxCollider (this);
+    }
 }
