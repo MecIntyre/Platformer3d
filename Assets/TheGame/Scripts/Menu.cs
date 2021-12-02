@@ -15,13 +15,18 @@ public class Menu : MonoBehaviour
     private bool keyWasPressed = false;
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (Input.GetAxisRaw ("Menu") > 0f)
         {
             if (!keyWasPressed)
-            GetComponent<Canvas> ().enabled = !GetComponent<Canvas>().enabled;
-
+            {
+                GetComponent<Canvas> ().enabled = !GetComponent<Canvas>().enabled;
+                if (GetComponent<Canvas> ().enabled)
+                    Time.timeScale = 0f;
+                else
+                    Time.timeScale = 1f;
+            }
+                
             keyWasPressed = true;
         } else
             keyWasPressed = false;
@@ -35,6 +40,7 @@ public class Menu : MonoBehaviour
         lm.loadScene ("Scene1");
 
         GetComponent<Canvas> ().enabled = false;
+        Time.timeScale = 1f;
     }
 
     // Beendet das Spiel
