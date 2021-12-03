@@ -54,10 +54,16 @@ public class Player : Saveable
         {
             r.isKinematic = !isDead;
         }
-        
+
         GetComponent<Rigidbody> ().isKinematic = isDead;
         GetComponent<Collider> ().enabled = !isDead;
         GetComponentInChildren<Animator> ().enabled = !isDead;
+    }
+
+    public void looseHealth()
+    {
+        setRagdollMode (true);
+        enabled = false;
     }
 
     // Update is called once per frame
