@@ -46,9 +46,16 @@ public class Player : Saveable
 
         if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
         {
-            SaveGameData.current = SaveGameData.load ();
-            LevelManager lm = FindObjectOfType<LevelManager> ();
-            lm.loadScene (SaveGameData.current.recentScene);
+
+            ScreenFader sf = FindObjectOfType<ScreenFader> ();
+            sf.fadeOut (true);
+
+            CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera> ();
+            if (cvc != null)
+            {
+                cvc.Follow = null;
+                cvc.LookAt = null;
+            }
 
             enabled = false;
             return;
