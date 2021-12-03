@@ -2,32 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScreenFader : MonoBehaviour
 {   
     //Zeiger auf das Canvas
     public Image overlay;
 
-    void Start()
-    {
-        fadeIn();
-    }
-
-    // Funktion zum Ein- und Ausblenden der Szene.
-    private void performFading(float toAlpha)
+    // CoRoutine zum Ein- und Ausblenden der Szene.
+    private IEnumerator performFading(float toAlpha, bool revertToSaveGame)
     {
         overlay.CrossFadeAlpha (toAlpha, 1f, false);
+
+        yield return new WaitForSeconds (1f);
+
+        if (revertToSaveGame)
+        {
+        SaveGameData.current = SaveGameData.load ();
+        LevelManager lm = FindObjectOfType<LevelManager> ();
+        lm.loadScene (SaveGameData.current.recentScene);
+        }
     }
 
-    // Blendet die Szene ein.
-    public void fadeIn()
+    /// Blendet die Szene ein.
+    /// <param name="revertToSavegame">Wenn true, wird nach dem überblenden der letzte Speicherstand geladen</param>
+    public void fadeIn(bool revertToSaveGame)
     {
-        performingFading (0f);
+        StartCoroutine(performFading (0f, revertToSaveGame));
     }
 
-    // Blendet die Szene aus.
-        public void fadeOut()
+    /// Blendet die Szene aus.
+    /// <param name="revertToSavegame">Wenn true, wird nach dem überblenden der letzte Speicherstand geladen</param>
+        public void fadeOut(bool revertToSaveGame)
     {
-        performingFading (1f);
+        StartCoroutine(performFading (1f, revertToSaveGame));
     }
+
+    private void Awake() 
+    {
+        overlay.gameObject.SetActive (true);
+        SceneManager.sceneLoaded += WhenLevelWasLoaded;
+    }   
+
+    private void OnDestroy() 
+    {
+        SceneManager.sceneLoaded -= WhenLevelWasLoaded;   
+    }
+
+    private void WhenLevelWasLoaded(Scene scene, LoadSceneMode mode) 
+    {
+        fadeIn (false);
+    }
+
 }
