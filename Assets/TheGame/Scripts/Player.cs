@@ -115,7 +115,13 @@ public class Player : Saveable
 
         // Springen
         RaycastHit hitInfo; 
-        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.25f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        
+        if (onGround && Vector3.Angle(Vector3.up, hitInfo.normal) > 10) //rutschen an Schrägen
+        {
+            rigid.AddForce(hitInfo.normal);
+        }
+        
         anim.SetBool ("grounded", onGround);
         if (Input.GetAxis("Jump") > 0f && onGround)
         {
