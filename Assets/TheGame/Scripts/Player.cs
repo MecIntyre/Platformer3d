@@ -169,6 +169,7 @@ public class Player : Saveable
         base.saveme (savegame);
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
+        savegame.playerHealth = health;
     }
 
     /* Nur wenn die geladene Szene die ist, in der zuletzt die Position gespeichert wurde,
@@ -177,7 +178,8 @@ public class Player : Saveable
     {
         base.loadme (savegame);
         if (savegame.recentScene == gameObject.scene.name)
-        transform.position = savegame.playerPosition;
+            transform.position = savegame.playerPosition;
+        health = Mathf.Clamp01(savegame.playerHealth);
     }
 
 }

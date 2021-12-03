@@ -11,6 +11,7 @@ public class SaveGameData
     public static SaveGameData current = new SaveGameData();
 
     public Vector3 playerPosition = Vector3.zero;
+    public float playerHealth = 1f;
 
     public bool doorIsOpen = false;
 
