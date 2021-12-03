@@ -58,12 +58,27 @@ public class Player : Saveable
         GetComponent<Rigidbody> ().isKinematic = isDead;
         GetComponent<Collider> ().enabled = !isDead;
         GetComponentInChildren<Animator> ().enabled = !isDead;
+
+        if (isDead)
+        {
+            ScreenFader sf = FindObjectOfType<ScreenFader> ();
+            sf.fadeOut (true, 1f);
+
+            CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera> ();
+            if (cvc != null)
+            {
+                cvc.Follow = null;
+                cvc.LookAt = null;
+            }
+
+            enabled = false;
+        }
     }
 
+    // Tod der Spielfigur
     public void looseHealth()
     {
         setRagdollMode (true);
-        enabled = false;
     }
 
     // Update is called once per frame
@@ -75,24 +90,12 @@ public class Player : Saveable
         if (Input.GetKeyUp(KeyCode.Alpha9)) //Testmode für Ragdoll-Tod
         {
             setRagdollMode (true);
-            enabled = false;
             return;
         }
 
         if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
         {
-
-            ScreenFader sf = FindObjectOfType<ScreenFader> ();
-            sf.fadeOut (true);
-
-            CinemachineVirtualCamera cvc = FindObjectOfType<CinemachineVirtualCamera> ();
-            if (cvc != null)
-            {
-                cvc.Follow = null;
-                cvc.LookAt = null;
-            }
-
-            enabled = false;
+            looseHealth ();
             return;
         }
 
