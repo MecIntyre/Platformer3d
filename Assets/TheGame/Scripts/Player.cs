@@ -44,6 +44,16 @@ public class Player : Saveable
         if (Time.timeScale == 0f)
             return; // Wenn pausiert, update abbrechen.
 
+        if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
+        {
+            SaveGameData.current = SaveGameData.load ();
+            LevelManager lm = FindObjectOfType<LevelManager> ();
+            lm.loadScene (SaveGameData.current.recentScene);
+
+            enabled = false;
+            return;
+        }
+
         float h = Input.GetAxis("Horizontal"); // Eingabesignal fürs Laufen
         anim.SetFloat("forward", Mathf.Abs(h));
 
