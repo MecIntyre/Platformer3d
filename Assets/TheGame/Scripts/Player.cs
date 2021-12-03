@@ -75,10 +75,16 @@ public class Player : Saveable
         }
     }
 
+    // Aktueller Gesundheitszustand in Prozent, von 0 - 1.
+    public float health = 1f;
+
     // Tod der Spielfigur
     public void looseHealth()
     {
-        setRagdollMode (true);
+        health -= 0.5f;
+
+        if (health <= 0f)
+            setRagdollMode (true);
     }
 
     // Update is called once per frame
