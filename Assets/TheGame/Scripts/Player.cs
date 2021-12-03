@@ -33,9 +33,31 @@ public class Player : Saveable
 
     protected override void Start()
     {
-        base.Start ();
         rigid = GetComponent<Rigidbody> ();
         anim = GetComponentInChildren<Animator>();
+
+        base.Start ();
+        setRagdollMode (false);
+    }
+
+    // Aktiviert oder deaktiviert die Ragdoll-Simulation
+    /// <param name="isDead">Wenn true, dann ist die Ragdoll aktiv, sonst der interaktive Spielmodus</param>
+    private void setRagdollMode(bool isDead)
+    {
+
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = isDead;
+        }
+
+        foreach (Rigidbody r in GetComponentsInChildren<Rigidbody>())
+        {
+            r.isKinematic = !isDead;
+        }
+        
+        GetComponent<Rigidbody> ().isKinematic = isDead;
+        GetComponent<Collider> ().enabled = !isDead;
+        GetComponentInChildren<Animator> ().enabled = !isDead;
     }
 
     // Update is called once per frame
@@ -43,6 +65,13 @@ public class Player : Saveable
     {   
         if (Time.timeScale == 0f)
             return; // Wenn pausiert, update abbrechen.
+
+        if (Input.GetKeyUp(KeyCode.Alpha9)) //Testmode für Ragdoll-Tod
+        {
+            setRagdollMode (true);
+            enabled = false;
+            return;
+        }
 
         if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
         {
