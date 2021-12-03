@@ -93,12 +93,6 @@ public class Player : Saveable
         if (Time.timeScale == 0f)
             return; // Wenn pausiert, update abbrechen.
 
-        if (Input.GetKeyUp(KeyCode.Alpha9)) //Testmode für Ragdoll-Tod
-        {
-            setRagdollMode (true);
-            return;
-        }
-
         if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
         {
             looseHealth ();
