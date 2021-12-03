@@ -16,6 +16,27 @@ public class SaveGameData
     // Liste der IDs aller Health-Orbs, die bereits eingesammelt wurden.
     public List<string> disabledHealthOrbs = new List<string> ();
 
+    [System.Serializable]
+    public class BarrelData
+    {
+        public string ID="";
+        public Vector3 position=Vector3.zero;
+    }
+
+    // Position der Fässer
+    public List<BarrelData> barrelData = new List<BarrelData> ();
+
+    // Sucht die gespeicherten Daten für das Fass mit der gegebenen ID.
+    /// <param name="ID">ID des gesuchten Fasses.</param>
+    /// <returns>Datensatz für das Fass mit der gegebenen ID oder NULL, wenn nicht vorhanden</return>
+    public BarrelData findBarrelDataByID (string ID)
+    {
+        foreach(BarrelData bd in barrelData)
+            if (bd.ID == ID)
+                return bd;
+        return null;
+    }
+
     public bool doorIsOpen = false;
 
     /// <summary>Die ID des zuletzt ausgelösten Save-Triggers. </summary>
