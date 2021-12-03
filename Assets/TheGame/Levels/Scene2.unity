@@ -377,6 +377,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1d684c5d6513d4aba5aaeff38e9704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &814908339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814908335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd40e245adb118f438dd59a50adef65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: sc2-barrel1
 --- !u!1 &1483741446
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bec288c5ffa8e943b866aea8c8741a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: sc2-h1
+  ID: sc2_healthorb1
 --- !u!135 &1906533151
 SphereCollider:
   m_ObjectHideFlags: 0
