@@ -13,6 +13,9 @@ public class SaveGameData
     public Vector3 playerPosition = Vector3.zero;
     public float playerHealth = 1f;
 
+    // Liste der IDs aller Health-Orbs, die bereits eingesammelt wurden.
+    public List<string> disabledHealthOrbs = new List<string> ();
+
     public bool doorIsOpen = false;
 
     /// <summary>Die ID des zuletzt ausgelösten Save-Triggers. </summary>
