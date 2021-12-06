@@ -90,8 +90,7 @@ public class Player : Saveable
     // Update is called once per frame
     private void Update()
     {   
-        if (Time.timeScale == 0f)
-            return; // Wenn pausiert, update abbrechen.
+        if (Time.timeScale == 0f) return; // Wenn pausiert, update abbrechen.
 
         if (transform.position.y < -2.34f) //Wenn Spieler runtergefallen...sterben
         {
@@ -117,7 +116,7 @@ public class Player : Saveable
         RaycastHit hitInfo; 
         onGround = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.25f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
         
-        if (onGround && Vector3.Angle(Vector3.up, hitInfo.normal) > 10) //rutschen an Schrägen
+        if (onGround && Vector3.Angle (Vector3.up, hitInfo.normal) > 10) //rutschen an Schrägen
         {
             rigid.AddForce(hitInfo.normal);
         }
