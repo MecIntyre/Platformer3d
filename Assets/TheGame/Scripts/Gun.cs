@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
     // Lichtquelle für den Schuss
     private Light fireLight;
 
+    // Verweis auf den Animator
     private Animator playerAnim;
 
     // Start is called before the first frame update
@@ -27,6 +28,9 @@ public class Gun : MonoBehaviour
         if (shotDone)
             StartCoroutine(doShoot ());
     }
+
+    // Original Kugel, die dupliziert in die Szene geschossen wird
+    public GameObject bulletPrototype;
 
     // Regelt die Schuss-Ausführung
     private IEnumerator doShoot()
