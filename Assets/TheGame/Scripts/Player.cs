@@ -130,6 +130,12 @@ public class Player : Saveable
             rigid.velocity = power;
         }
         rigid.AddForce(new Vector3 (0f, extraGravity, 0f));
+
+        // Schießen
+        if (Input.GetAxisRaw("Fire2") > 0f)
+        {
+            GetComponentInChildren<Gun> ().shoot ();
+        }
     }
     // Farbige Zeichnung des Hilfsstrahl für Entfernungsmessung beim Springen (Raycast)
     private void OnDrawGizmos() 
