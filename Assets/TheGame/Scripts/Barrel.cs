@@ -38,7 +38,9 @@ public class Barrel : Saveable
     {
         base.Start ();
         r = GetComponent<Rigidbody> ();
-        Debug.LogWarning ("Das Fass "+gameObject+" braucht noch eine ID");
+        
+        if (ID == "")
+            Debug.LogWarning ("Das Fass "+gameObject+" braucht noch eine ID");
     }
 
     private void Update() 
