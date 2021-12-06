@@ -23,11 +23,8 @@ public class Menu : MonoBehaviour
             {
                 menuRoot.SetActive(!menuRoot.activeSelf);
                 
-                Time.timeScale = menuRoot.activeSelf ? 0f : 1f ;      /* Alternative zu:    if (menuRoot.activeSelf)
-                                                                                                Time.timeScale = 0f;
-                                                                                            else
-                                                                                                Time.timeScale = 1f; */
-                                                                
+                Time.timeScale = menuRoot.activeSelf ? 0f : 1f ;      
+                                                            
             }
                 
             keyWasPressed = true;
