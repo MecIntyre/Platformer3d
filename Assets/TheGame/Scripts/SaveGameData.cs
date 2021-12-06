@@ -48,7 +48,7 @@ public class SaveGameData
 
     /* Methoden, die sich in ein Save-Event eintragen wollen, 
        müssen von dieser Form sein. */
-    public delegate void SaveHandler(SaveGameData saveGame);
+    public delegate void SaveHandler(SaveGameData savegame);
 
     /* Methoden, die sich hier Eintragen, werden aufgerufen, 
        wenn sich Szenenobjekte ihren Zustand in den Speicherstand eintragen sollen */
