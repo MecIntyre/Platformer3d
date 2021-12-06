@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         if (name == "")
             return; // Ungültiger Aufruf bei fehlendem Szenennamen
 
-        for (int i = SceneManager.sceneCount - 1; i > 0; i--)
+        for (int i = SceneManager.sceneCount -1; i > 0; i--)
         {
             SceneManager.UnloadSceneAsync (SceneManager.GetSceneAt(i).name);
         }
