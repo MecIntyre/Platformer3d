@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Implementiert das verhalten der Pistole
-public class Gun : MonoBehaviour
+public class Gun : Saveable
 {
     // Lichtquelle für den Schuss
     private Light fireLight;
@@ -11,17 +11,19 @@ public class Gun : MonoBehaviour
     // Verweis auf den Animator
     private Animator playerAnim;
 
-    // Anzahl der patronen in der Waffe
-    public int ammo = 0;
+    // Anzahl der Patronen in der Waffe
+    public int ammo = 3;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         fireLight = GetComponentInChildren<Light> ();
         fireLight.enabled = false;
         playerAnim = GetComponentInParent<Animator> ();
 
         bulletPrototype.SetActive (false);
+
+        base.Start();
     }
 
     // Ist der vorherige Schuss schon fertig?
@@ -56,5 +58,17 @@ public class Gun : MonoBehaviour
             yield return new WaitForEndOfFrame ();
 
         shotDone = true;
+    }
+
+    protected override void saveme (SaveGameData savegame)
+    {
+        base.saveme (savegame);
+        savegame.playerAmmo = ammo;
+    }
+
+    protected override void loadme (SaveGameData savegame)
+    {
+        base.loadme (savegame);
+        ammo = savegame.playerAmmo;
     }
 }
