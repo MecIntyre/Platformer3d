@@ -77,8 +77,13 @@ public class Player : Saveable
         }
     }
 
+    private float _health = 1f;
     // Aktueller Gesundheitszustand in Prozent, von 0 - 1.
-    public float health = 1f;
+    public float health
+    {
+        get{ return _health;}
+        set{ _health = Mathf.Clamp01(value); }
+    }
 
     // Tod der Spielfigur
     public void looseHealth()
@@ -168,6 +173,7 @@ public class Player : Saveable
     protected override void saveme(SaveGameData savegame)
     {
         base.saveme (savegame);
+        
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
         savegame.playerHealth = health;
@@ -178,9 +184,10 @@ public class Player : Saveable
     protected override void loadme(SaveGameData savegame)
     {
         base.loadme (savegame);
+
         if (savegame.recentScene == gameObject.scene.name)
             transform.position = savegame.playerPosition;
-        health = Mathf.Clamp01(savegame.playerHealth);
+        health = savegame.playerHealth;
     }
 
 }
