@@ -16,6 +16,9 @@ public class SaveGameData
     // Liste der IDs aller Health-Orbs, die bereits eingesammelt wurden.
     public List<string> disabledHealthOrbs = new List<string> ();
 
+    // Liste der IDs aller AmmoPacks, die bereits eingesammelt wurden
+    public List<string> collectedAmmos = new List<string> ();
+
     [System.Serializable]
     public class BarrelData
     {
