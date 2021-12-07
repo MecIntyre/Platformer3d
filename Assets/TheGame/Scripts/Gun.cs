@@ -17,10 +17,12 @@ public class Gun : MonoBehaviour
         fireLight = GetComponentInChildren<Light> ();
         fireLight.enabled = false;
         playerAnim = GetComponentInParent<Animator> ();
+
+        bulletPrototype.SetActive (false);
     }
 
     // Ist der vorherige Schuss schon fertig?
-    private bool shotDone =true;
+    private bool shotDone = true;
 
     //Feuert einen Schuss aus der Pistole ab
     public void shoot()
@@ -36,6 +38,10 @@ public class Gun : MonoBehaviour
     private IEnumerator doShoot()
     {
         shotDone = false;
+
+        GameObject bullet = Instantiate (bulletPrototype,bulletPrototype.transform.parent);
+        bullet.transform.parent = null;
+        bullet.SetActive (true);
 
         playerAnim.SetTrigger("gunShot");
         fireLight.enabled = true;
