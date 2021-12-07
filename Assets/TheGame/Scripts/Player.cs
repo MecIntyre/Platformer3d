@@ -47,12 +47,14 @@ public class Player : Saveable
 
         foreach (Collider c in GetComponentsInChildren<Collider>())
         {
-            c.enabled = isDead;
+            if (c.gameObject.name.StartsWith("mixamorig:")) //nur wenn dies ein (Ragdoll)-bone ist
+                c.enabled = isDead;
         }
 
         foreach (Rigidbody r in GetComponentsInChildren<Rigidbody>())
         {
-            r.isKinematic = !isDead;
+            if (r.gameObject.name.StartsWith("mixamorig:"))
+                r.isKinematic = !isDead;
         }
 
         GetComponent<Rigidbody> ().isKinematic = isDead;
