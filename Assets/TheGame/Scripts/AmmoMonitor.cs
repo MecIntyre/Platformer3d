@@ -12,9 +12,9 @@ public class AmmoMonitor : MonoBehaviour
     private Gun gun;
 
     // Update is called once per frame
-    void Update()
+    private void Update ()
     {
-        if (gun = null)
+        if (gun == null)
         {
             Player p = FindObjectOfType<Player> ();
             gun = p.GetComponentInChildren<Gun> ();
