@@ -12,18 +12,16 @@ public class SaveGameData
 
     public Vector3 playerPosition = Vector3.zero;
     public float playerHealth = 1f;
+    public int playerAmmo = 0;
 
-    // Liste der IDs aller Health-Orbs, die bereits eingesammelt wurden.
-    public List<string> disabledHealthOrbs = new List<string> ();
-
-    // Liste der IDs aller AmmoPacks, die bereits eingesammelt wurden
-    public List<string> collectedAmmos = new List<string> ();
+    // Liste der IDs aller SaveableDestructable-Objekte, die bereits eingesammelt wurden
+    public List<string> destroyedObjects = new List<string> ();
 
     [System.Serializable]
     public class BarrelData
     {
         public string ID="";
-        public Vector3 position=Vector3.zero;
+        public Vector3 position = Vector3.zero;
     }
 
     // Position der Fässer
