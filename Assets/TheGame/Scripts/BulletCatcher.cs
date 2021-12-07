@@ -7,6 +7,6 @@ public class BulletCatcher : MonoBehaviour
 {
    public virtual void onHitByBullet()
        {
-            Debug.Log(gameObject.name + " wurde von einer Kugel getroffen");
+            Debug.Log(gameObject.name+" wurde von einer Kugel getroffen");
        }
 }
