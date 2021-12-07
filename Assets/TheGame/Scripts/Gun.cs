@@ -11,6 +11,9 @@ public class Gun : MonoBehaviour
     // Verweis auf den Animator
     private Animator playerAnim;
 
+    // Anzahl der patronen in der Waffe
+    public int ammo = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,7 @@ public class Gun : MonoBehaviour
     //Feuert einen Schuss aus der Pistole ab
     public void shoot()
     {
-        if (shotDone)
+        if (shotDone && ammo > 0)
             StartCoroutine(doShoot ());
     }
 
@@ -42,11 +45,15 @@ public class Gun : MonoBehaviour
         GameObject bullet = Instantiate (bulletPrototype,bulletPrototype.transform.parent);
         bullet.transform.parent = null;
         bullet.SetActive (true);
+        ammo -= 1; // Patrone verbrauchen
 
         playerAnim.SetTrigger("gunShot");
         fireLight.enabled = true;
         yield return new WaitForSeconds (0.1f);
         fireLight.enabled = false;
+
+        while(playerAnim.GetCurrentAnimatorStateInfo(1).IsName ("gunShot"))
+            yield return new WaitForEndOfFrame ();
 
         shotDone = true;
     }
