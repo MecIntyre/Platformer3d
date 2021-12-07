@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Sammelbare heilungskugel, das Leben erhöht
 public class HealthOrb : Saveable
 {
     public void OnTriggerEnter(Collider other) 
@@ -21,7 +22,7 @@ public class HealthOrb : Saveable
     {
         base.Start();
         if (ID == "") 
-        Debug.LogError ("Die Healthorb "+gameObject.name+" hat keine ID bekommen!");
+            Debug.LogError ("Die Healthorb "+gameObject.name+" hat keine ID bekommen!");
     }
 
     protected override void saveme(SaveGameData savegame)
