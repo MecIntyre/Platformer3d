@@ -314,4 +314,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7949fa7ced6232e4ebc44c13879273af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammo: 10
   bulletPrototype: {fileID: 1493471576}
