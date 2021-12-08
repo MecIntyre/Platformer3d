@@ -8,7 +8,8 @@ public class Utils
         /// <param name="mb">Monobehaviour, das einen Boxcollider als Geschwisterkomponente hat. </param>
         /// <param name="Color">Farbe des Gizmos</param>
    public static void DrawBoxCollider(MonoBehaviour mb, Color color) 
-   {
+   {    
+       #if UNITY_EDITOR
         if (UnityEditor.Selection.activeGameObject != mb.gameObject)
         {
             BoxCollider bc = mb.GetComponent<BoxCollider>();
@@ -21,5 +22,6 @@ public class Utils
             Gizmos.DrawWireCube(bc.center, bc.size);
             Gizmos.matrix = oldMatrix;
         }   
+        #endif
    }
 }
