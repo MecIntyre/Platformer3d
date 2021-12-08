@@ -32,11 +32,14 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(name, LoadSceneMode.Additive);
     }
     
-    // Spielstand schnell laden durch drücken von Taste 1
+    #if UNITY_EDITOR
+    // Spielstand schnell laden und speichern durch drücken von Taste 1 und 2
     private void Update() 
     {
         if (Input.GetKeyUp (KeyCode.Alpha1))
             SaveGameData.current = SaveGameData.load();
-    }
-
+        else if (Input.GetKeyUp (KeyCode.Alpha2))
+            SaveGameData.current = SaveGameData.save();
+    }  
+    #endif
 }
