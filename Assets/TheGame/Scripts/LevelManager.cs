@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyUp (KeyCode.Alpha1))
             SaveGameData.current = SaveGameData.load();
         else if (Input.GetKeyUp (KeyCode.Alpha2))
-            SaveGameData.current = SaveGameData.save();
+            SaveGameData.current.save ();
     }  
     #endif
 }
