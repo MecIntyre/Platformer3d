@@ -11,8 +11,28 @@ public class Gun : Saveable
     // Verweis auf den Animator
     private Animator playerAnim;
 
+    // Sound für den Pistolenschuss
+    public AudioSource soundShot;
+
+    // Sound für den leeren Pistolenschuss
+    public AudioSource soundEmpty;
+
+    // Sound für das nachladen der Waffe / aufheben Ammopack
+    public AudioSource soundLoad;
+
     // Anzahl der Patronen in der Waffe
-    public int ammo = 3;
+    private int _ammo = 3;
+    public int ammo 
+    { 
+        get{ return _ammo; }
+        set{ 
+            if (!soundLoad.isPlaying && value > _ammo) 
+            {
+                soundLoad.Play(); 
+            }
+            _ammo = value;
+        }
+    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -32,8 +52,13 @@ public class Gun : Saveable
     //Feuert einen Schuss aus der Pistole ab
     public void shoot()
     {
-        if (shotDone && ammo > 0)
-            StartCoroutine(doShoot ());
+        if (shotDone)
+        {   
+            if (ammo > 0)
+                StartCoroutine(doShoot ());
+            else
+                if (!soundEmpty.isPlaying) soundEmpty.Play();
+        }
     }
 
     // Original Kugel, die dupliziert in die Szene geschossen wird
@@ -44,6 +69,7 @@ public class Gun : Saveable
     {
         shotDone = false;
 
+        soundShot.Play ();
         GameObject bullet = Instantiate (bulletPrototype,bulletPrototype.transform.parent);
         bullet.transform.parent = null;
         bullet.SetActive (true);
