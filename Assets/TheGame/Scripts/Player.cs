@@ -31,6 +31,12 @@ public class Player : Saveable
        Wenn false, fällt oder springt sie. */
     private bool onGround = false;
 
+    // Soundeffekt für's Springen
+    public AudioSource soundJump;
+
+    // Soundeffekt für's Springen
+    public AudioSource soundDeath;
+
     protected override void Start()
     {
         rigid = GetComponent<Rigidbody> ();
@@ -73,6 +79,7 @@ public class Player : Saveable
                 cvc.LookAt = null;
             }
 
+            soundDeath.Play ();
             enabled = false;
         }
     }
@@ -134,6 +141,9 @@ public class Player : Saveable
             Vector3 power = rigid.velocity; 
             power.y = jumpPush;
             rigid.velocity = power;
+
+            if (!soundJump.isPlaying)
+                soundJump.Play ();
         }
         rigid.AddForce(new Vector3 (0f, extraGravity, 0f));
 
@@ -173,7 +183,7 @@ public class Player : Saveable
     protected override void saveme(SaveGameData savegame)
     {
         base.saveme (savegame);
-        
+
         savegame.playerPosition = transform.position;
         savegame.recentScene = gameObject.scene.name;
         savegame.playerHealth = health;
