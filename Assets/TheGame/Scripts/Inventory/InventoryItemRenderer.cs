@@ -26,7 +26,10 @@ public class InventoryItemRenderer : MonoBehaviour
     private void onItemRemoved(InventoryItem item)
     {
         if(item == _item)
-        OnDestroy(gameObject);
+        {
+            Destroy (gameObject);
+			    enabled = false;
+        }
     }
 
     private void OnDestroy() 
