@@ -12,12 +12,18 @@ public class DoorSwitch : Saveable
     // Zeiger auf das Mesh, das die Lichter an der Schalterkonsole darstellt.
     public MeshRenderer mesh;
 
+    // Schlüssel, der im Inventar vorhanden sein muss, damit der Schalter funktioniert
+    public InventoryItem key;
+
     // Steuert die Tür mittels der Schaltkonsole, wenn die Feuer-Taste gedrückt wird.
     private void OnTriggerStay(Collider other) 
     {
         if (Input.GetAxisRaw ("Fire1") != 0f && !doorAnimator.GetBool("isOpen"))    
         {
-            openTheDoor();     
+            if (SaveGameData.current.inventory.contains (key))
+                openTheDoor();   
+            else
+                Debug.Log ("Schlüssel fehlt");  
         }
     }
 
