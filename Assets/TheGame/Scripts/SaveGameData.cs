@@ -47,6 +47,9 @@ public class SaveGameData
     // Name der Szene, in der sich die Spielfigur momentan befindet.
     public string recentScene = "Scene1";
 
+    // Inventar mit den mitgeführten Inventarobjekten
+    public Inventory inventory = new Inventory ();
+
     /* Methoden, die sich in ein Save-Event eintragen wollen, 
        müssen von dieser Form sein. */
     public delegate void SaveHandler(SaveGameData savegame);
