@@ -17,7 +17,7 @@ public class AmmoMonitor : MonoBehaviour
         if (gun == null)
         {
             Player p = FindObjectOfType<Player> ();
-            gun = p.GetComponentInChildren<Gun> ();
+            if (p != null) gun = p.GetComponentInChildren<Gun> ();
         }
         else
             uiText.text = gun.ammo.ToString();
