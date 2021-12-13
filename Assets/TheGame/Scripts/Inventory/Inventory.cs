@@ -4,6 +4,7 @@ using UnityEngine;
 
 /* Speichert eine Liste der mitgeführten Gegenstände im Inventar
 und übernimmt das Laden + Speichern */
+[System.Serializable]
 public class Inventory
     {
         /*  Signatur der Event-Listener, die aufgerufen werden sollen, 
@@ -18,6 +19,13 @@ public class Inventory
         public static event ItemChangeEvent onItemRemoved;
 
         private List<InventoryItem> items = new List<InventoryItem> ();   
+
+        // Gibt Lesezugriff auf die aktuelle Item-Sammlung
+        ///<returns>Item-Object im Inventar.</returns>
+        public List<InventoryItem> getItems()
+        {
+            return items;
+        }
 
         /*  Fügt ein Inventarobjekt in die Liste der mitgeführten Gegenstände ein.
             Doppelte Einträge sind möglich! */
@@ -42,5 +50,25 @@ public class Inventory
             Debug.Log ("Inventar verliert " + item);
             items.Remove (item);
             if (onItemRemoved != null) onItemRemoved (item);
+        }
+        
+        // Liste der IDs/Namen der Scriptable-Objects im Inventar (*Assets)
+        public List<string> IDs;
+        public void save()
+        {    
+            IDs = new List<string>();
+            foreach(InventoryItem ii in items) IDs.Add(ii.name);
+        }
+
+        public void load()
+        {    
+            items.Clear();
+            AssetList al = new AssetList();
+            foreach(string ID in IDs)
+            {
+                InventoryItem ii = al.findAsset(ID); // finde das .asset für die ID
+                if (ii != null) items.Add(ii);
+                else Debug.LogWarning("Inventar konnte kein Asset für die ID=" + ID + "Finden!");
+            }
         }
     }
