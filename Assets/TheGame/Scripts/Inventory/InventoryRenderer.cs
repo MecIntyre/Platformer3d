@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Stellt ein einzelnes Inventarobjekt auf dem UI-Canvas dar
 public class InventoryRenderer : MonoBehaviour
@@ -11,6 +12,7 @@ public class InventoryRenderer : MonoBehaviour
     // Start is called before the first frame update
     private void Start ()
     {
+        SceneManager.sceneLoaded += onSceneLoaded;
         Inventory.onItemAdded += Inventory_onItemAdded;
         itemRendererPrototype.SetActive (false);
     }
@@ -27,6 +29,7 @@ public class InventoryRenderer : MonoBehaviour
     private void OnDestroy() 
     {
         Inventory.onItemAdded -= Inventory_onItemAdded;   
+        SceneManager.sceneLoaded -= onSceneLoaded;
     }
 
     // Ordnet die sichtbaren Inventarobjekte nebeneinander an
@@ -41,4 +44,13 @@ public class InventoryRenderer : MonoBehaviour
             x += rt.sizeDelta.x + 20f;
         }
     }
+
+    private void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Renderer komplett neu aufbauen, um aktuellen Zustand des aktiven Savegames zu zeigen
+        foreach(InventoryItemRenderer iir in FindObjectsOfType<InventoryItemRenderer>())
+            Destroy(iir.gameObject);
+        foreach(InventoryItem ii in SaveGameData.current.inventory.getItems())
+            Inventory_onItemAdded(ii);
+    }    
 }
