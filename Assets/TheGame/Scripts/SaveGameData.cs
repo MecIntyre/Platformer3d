@@ -77,6 +77,7 @@ public class SaveGameData
         Debug.Log ("Speichere Spielstand " +getFilename());
 
         if (onSave!=null) onSave(this);
+        inventory.save();
 
         string xml = XML.Save(this);
         File.WriteAllText(getFilename (), xml);
@@ -92,7 +93,8 @@ public class SaveGameData
 
         Debug.Log ("Lade Spielstand " + getFilename ());
         SaveGameData save = XML.Load<SaveGameData> (File.ReadAllText(getFilename()));
-
+        
+        save.inventory.load();
         if(onLoad!=null) onLoad(save);
 
         return save;
