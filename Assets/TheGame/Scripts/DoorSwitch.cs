@@ -22,7 +22,7 @@ public class DoorSwitch : Saveable
         {
             if (SaveGameData.current.inventory.contains (key))
             {   
-                SaveGameData.curent.inventory.remove (key);
+                SaveGameData.current.inventory.remove (key);
                 openTheDoor();
             }   
             else
