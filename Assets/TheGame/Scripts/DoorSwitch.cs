@@ -21,7 +21,10 @@ public class DoorSwitch : Saveable
         if (Input.GetAxisRaw ("Fire1") != 0f && !doorAnimator.GetBool("isOpen"))    
         {
             if (SaveGameData.current.inventory.contains (key))
-                openTheDoor();   
+            {   
+                SaveGameData.curent.inventory.remove (key);
+                openTheDoor();
+            }   
             else
                 Debug.Log ("Schlüssel fehlt");  
         }
