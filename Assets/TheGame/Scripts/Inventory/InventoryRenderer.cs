@@ -21,10 +21,24 @@ public class InventoryRenderer : MonoBehaviour
         InventoryItemRenderer iir = newItemRenderer.AddComponent<InventoryItemRenderer>();
         iir.item = item;
         newItemRenderer.SetActive (true);
+        doLayout ();
     }
 
     private void OnDestroy() 
     {
         Inventory.onItemAdded -= Inventory_onItemAdded;   
+    }
+
+    // Ordnet die sichtbaren Inventarobjekte nebeneinander an
+    public void doLayout()
+    {
+        float x = 20f;
+        foreach (InventoryItemRenderer r in FindObjectsOfType<InventoryItemRenderer>())
+        {
+            if (!r.enabled) continue;
+            RectTransform rt = r.GetComponent<RectTransform> ();
+            rt.anchoredPosition = new Vector2(x, rt.anchoredPosition.y);
+            x += rt.sizeDelta.x + 20f;
+        }
     }
 }
