@@ -28,7 +28,8 @@ public class InventoryItemRenderer : MonoBehaviour
         if(item == _item)
         {
             Destroy (gameObject);
-			    enabled = false;
+			enabled = false;
+            GetComponentInParent<InventoryRenderer> ().doLayout ();
         }
     }
 
